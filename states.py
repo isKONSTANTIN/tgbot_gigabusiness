@@ -2,59 +2,55 @@ from aiogram.fsm.state import StatesGroup, State
 
 
 class RegistrationFlow(StatesGroup):
-    # Знакомство
-    waiting_for_start_decision = State()         # Хочет ли человек открыть бизнес?
-    waiting_for_business_name = State()          # Название компании
-    waiting_for_form_knowledge = State()         # Знаете ли какая форма регистрации нужна?
-    waiting_for_form_choice = State()            # Выбор формы регистрации
+
+    # Режим чата с ИИ
+    ai_chat_mode = State()
+
+    # Опросник
+    waiting_for_business_name = State()      # Название компании
+    waiting_for_form_choice = State()        # Сразу выбор формы
 
     # Ветка ИП/ООО (Налоги)
-    waiting_for_tax_knowledge = State()           # Знаете ли вы налоговый режим?
-    waiting_for_tax_choice = State()              # Выбор режима
+    waiting_for_tax_choice = State()         # Сразу выбор налога
 
     # Ветка самозанятый (Счет)
-    waiting_for_account_existence = State()       # Есть ли счет?
-    waiting_for_bank_choice = State()             # Выбор банка
+    waiting_for_bank_choice_self = State()   # Выбор банка (самозанятый)
 
     # ОКВЭД
-    waiting_for_okved_knowledge = State()         # Знаете ли код?
-    waiting_for_okved_selection = State()         # Выбор конкретного кода
+    waiting_for_okved_selection = State()    # Выбор из меню
+    waiting_for_okved_custom = State()       # НОВОЕ: Ручной ввод ОКВЭД
 
     # Место регистрации
-    waiting_for_reg_place_knowledge = State()     # Знаете где?
-    waiting_for_reg_place_choice = State()        # Выбор (Банк/МФЦ/Госуслуги)
+    waiting_for_reg_place_choice = State()   # Выбор места
 
-    # Доп. ветка, если выбрали банк
-    waiting_for_reg_bank_knowledge = State()      # Знаете какой банк?
-    waiting_for_reg_bank_choice = State()         # Выбор конкретного банка
+    # Банк для регистрации (подветка)
+    waiting_for_reg_bank_choice = State()
 
     # Касса
-    waiting_for_kassa_knowledge = State()         # Знаете какая касса нужна?
-    waiting_for_kassa_choice = State()            # Выбор кассы
+    waiting_for_kassa_choice = State()
+
+    # Эквайринг
+    waiting_for_acquiring_decision = State() # Да/Нет
+    waiting_for_acquiring_bank = State()     # Выбор банка
 
     # Расчетный счет (РКО)
-    waiting_for_rko_knowledge = State()           # Знаете где открывать?
-    waiting_for_rko_choice = State()              # Выбор банка
+    waiting_for_rko_choice = State()
 
     # Сотрудники
-    waiting_for_employees_decision = State()      # Нужны ли сотрудники?
+    waiting_for_employees_decision = State()
 
     # Бухгалтерия
-    waiting_for_accounting_knowledge = State()    # Знаете кто будет вести?
-    waiting_for_accounting_choice = State()       # Выбор типа бухгалтерии
+    waiting_for_accounting_choice = State()
 
     # Помещение
-    waiting_for_premises_knowledge = State()      # Знаете зачем?
-    waiting_for_premises_decision = State()       # Нужно ли помещение?
+    waiting_for_premises_decision = State()
 
-    # CRM система
-    waiting_for_crm_knowledge = State()           # Знаете зачем?
-    waiting_for_crm_decision = State()            # Нужна ли CRM?
-    waiting_for_crm_selection = State()           # Выбор конкретной CRM
+    # CRM
+    waiting_for_crm_decision = State()
+    waiting_for_crm_selection = State()
 
     # Реклама
-    waiting_for_ads_knowledge = State()           # Знаете зачем?
-    waiting_for_ads_decision = State()            # Нужна ли реклама?
+    waiting_for_ads_decision = State()
 
-    # Финал
-    waiting_for_support_question = State()        # Остались вопросы?
+    # Финал (после опроса)
+    waiting_for_support_question = State()
