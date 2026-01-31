@@ -32,7 +32,6 @@ jobs:
         with:
           context: .
           push: true
-          target: tgbot
           tags: ghcr.io/alex-rix/tgbot_gigabusiness:latest
           labels: |
             org.opencontainers.image.source=${{ github.event.repository.html_url }}
